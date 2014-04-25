@@ -17,7 +17,7 @@
 #endif
 
 #ifdef BFS_PAR
-	#define NRUNS	1
+	#define NRUNS	0
 	#ifndef BFS
 		#define BFS
 	#endif
@@ -121,7 +121,7 @@
 #endif
 #ifdef NP
 	#define HAS_NP	2
-	#define VERI	3	/* np_ */
+	#define VERI	2	/* np_ */
 #endif
 
 typedef struct S_F_MAP {
@@ -130,31 +130,24 @@ typedef struct S_F_MAP {
 	int upto;
 } S_F_MAP;
 
-#define nstates2	13	/* :init: */
-#define minseq2	36
-#define maxseq2	47
-#define endstate2	12
-
 #define nstates1	3	/* check */
-#define minseq1	34
-#define maxseq1	35
+#define minseq1	27
+#define maxseq1	28
 #define endstate1	2
 
-#define nstates0	35	/* philosopher */
+#define nstates0	28	/* philosopher */
 #define minseq0	0
-#define maxseq0	33
-#define endstate0	34
+#define maxseq0	26
+#define endstate0	27
 
-extern short src_ln2[];
 extern short src_ln1[];
 extern short src_ln0[];
-extern S_F_MAP src_file2[];
 extern S_F_MAP src_file1[];
 extern S_F_MAP src_file0[];
 
 #define T_ID	unsigned char
-#define _T5	25
-#define _T2	26
+#define _T5	15
+#define _T2	16
 #define WS		8 /* word size in bytes */
 #define SYNC	0
 #define ASYNC	0
@@ -169,23 +162,11 @@ extern S_F_MAP src_file0[];
 	#endif
 #endif
 
-#define Pinit	((P2 *)this)
-typedef struct P2 { /* :init: */
-	unsigned _pid : 8;  /* 0..255 */
-	unsigned _t   : 3; /* proctype */
-	unsigned _p   : 7; /* state    */
-#ifdef HAS_PRIORITY
-	unsigned _priority : 8; /* 0..255 */
-#endif
-	int i;
-} P2;
-#define Air2	(sizeof(P2) - Offsetof(P2, i) - 1*sizeof(int))
-
 #define Pcheck	((P1 *)this)
 typedef struct P1 { /* check */
 	unsigned _pid : 8;  /* 0..255 */
 	unsigned _t   : 3; /* proctype */
-	unsigned _p   : 7; /* state    */
+	unsigned _p   : 6; /* state    */
 #ifdef HAS_PRIORITY
 	unsigned _priority : 8; /* 0..255 */
 #endif
@@ -196,7 +177,7 @@ typedef struct P1 { /* check */
 typedef struct P0 { /* philosopher */
 	unsigned _pid : 8;  /* 0..255 */
 	unsigned _t   : 3; /* proctype */
-	unsigned _p   : 7; /* state    */
+	unsigned _p   : 6; /* state    */
 #ifdef HAS_PRIORITY
 	unsigned _priority : 8; /* 0..255 */
 #endif
@@ -204,15 +185,15 @@ typedef struct P0 { /* philosopher */
 } P0;
 #define Air0	(sizeof(P0) - Offsetof(P0, id) - 1*sizeof(int))
 
-typedef struct P3 { /* np_ */
+typedef struct P2 { /* np_ */
 	unsigned _pid : 8;  /* 0..255 */
 	unsigned _t   : 3; /* proctype */
-	unsigned _p   : 7; /* state    */
+	unsigned _p   : 6; /* state    */
 #ifdef HAS_PRIORITY
 	unsigned _priority : 8; /* 0..255 */
 #endif
-} P3;
-#define Air3	(sizeof(P3) - 3)
+} P2;
+#define Air2	(sizeof(P2) - 3)
 
 #define Pclaim	P0
 #ifndef NCLAIMS
@@ -430,14 +411,13 @@ typedef struct TRIX_v6 {
 #define FORWARD_MOVES	"pan.m"
 #define REVERSE_MOVES	"pan.b"
 #define TRANSITIONS	"pan.t"
-#define _NP_	3
-#define nstates3	3 /* np_ */
-#define endstate3	2 /* np_ */
+#define _NP_	2
+#define nstates2	3 /* np_ */
+#define endstate2	2 /* np_ */
 
-#define start3	0 /* np_ */
-#define start2	1
+#define start2	0 /* np_ */
 #define start1	1
-#define start0	30
+#define start0	24
 #ifdef NP
 	#define ACCEPT_LAB	1 /* at least 1 in np_ */
 #else
@@ -785,7 +765,7 @@ void qsend(int, int, int);
 #define GLOBAL	7
 #define BAD	8
 #define ALPHA_F	9
-#define NTRANS	27
+#define NTRANS	17
 #if defined(BFS_PAR) || NCORE>1
 	void e_critical(int);
 	void x_critical(int);

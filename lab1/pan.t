@@ -22,86 +22,57 @@ settable(void)
 {	Trans *T;
 	Trans *settr(int, int, int, int, int, char *, int, int, int);
 
-	trans = (Trans ***) emalloc(4*sizeof(Trans **));
-
-	/* proctype 2: :init: */
-
-	trans[2] = (Trans **) emalloc(13*sizeof(Trans *));
-
-	trans[2][1]	= settr(36,0,8,3,3,"i = 0", 0, 2, 0);
-	trans[2][9]	= settr(44,0,8,1,0,".(goto)", 0, 2, 0);
-	T = trans[2][8] = settr(43,0,0,0,0,"DO", 0, 2, 0);
-	T = T->nxt	= settr(43,0,2,0,0,"DO", 0, 2, 0);
-	    T->nxt	= settr(43,0,6,0,0,"DO", 0, 2, 0);
-	trans[2][2]	= settr(37,0,3,4,0,"((i<=(4-1)))", 0, 2, 0);
-	trans[2][3]	= settr(38,0,4,5,5,"hunger[i] = 20", 1, 2, 0);
-	trans[2][4]	= settr(39,0,5,6,6,"fork[i] = -(1)", 1, 2, 0);
-	trans[2][5]	= settr(40,0,8,7,7,"i = (i+1)", 0, 2, 0);
-	trans[2][6]	= settr(41,0,11,2,0,"else", 0, 2, 0);
-	trans[2][7]	= settr(42,0,11,1,0,"goto :b1", 0, 2, 0);
-	trans[2][10]	= settr(45,0,11,1,0,"break", 0, 2, 0);
-	trans[2][11]	= settr(46,0,12,8,8,"(run check())", 0, 2, 0);
-	trans[2][12]	= settr(47,0,0,9,9,"-end-", 0, 3500, 0);
+	trans = (Trans ***) emalloc(3*sizeof(Trans **));
 
 	/* proctype 1: check */
 
 	trans[1] = (Trans **) emalloc(3*sizeof(Trans *));
 
-	trans[1][1]	= settr(34,0,2,10,0,"((philosopher._p==L))", 1, 2, 0);
-	trans[1][2]	= settr(35,0,0,11,11,"-end-", 0, 3500, 0);
+	trans[1][1]	= settr(27,0,2,3,0,"((philosopher._p==DEAD))", 1, 2, 0);
+	trans[1][2]	= settr(28,0,0,4,4,"-end-", 0, 3500, 0);
 
 	/* proctype 0: philosopher */
 
-	trans[0] = (Trans **) emalloc(35*sizeof(Trans *));
+	trans[0] = (Trans **) emalloc(28*sizeof(Trans *));
 
-	trans[0][31]	= settr(30,0,30,1,0,".(goto)", 0, 2, 0);
-	T = trans[0][30] = settr(29,0,0,0,0,"DO", 0, 2, 0);
-	T = T->nxt	= settr(29,0,1,0,0,"DO", 0, 2, 0);
-	    T->nxt	= settr(29,0,27,0,0,"DO", 0, 2, 0);
-	trans[0][1]	= settr(0,0,2,12,0,"((hunger[id]>=0))", 1, 2, 0);
-	trans[0][2]	= settr(1,0,25,13,0,"printf('%d is still alive\\n',id)", 0, 2, 0);
-	T = trans[0][25] = settr(24,0,0,0,0,"IF", 0, 2, 0);
-	T = T->nxt	= settr(24,0,3,0,0,"IF", 0, 2, 0);
-	    T->nxt	= settr(24,0,22,0,0,"IF", 0, 2, 0);
-	trans[0][3]	= settr(2,0,21,14,0,"((hunger[id]<15))", 1, 2, 0);
-	T = trans[ 0][21] = settr(20,0,0,0,0,"sub-sequence", 0, 2, 0);
-	T->nxt	= settr(20,0,11,0,0,"sub-sequence", 0, 2, 0);
-	T = trans[ 0][11] = settr(10,0,0,0,0,"sub-sequence", 0, 2, 0);
-	T->nxt	= settr(10,0,10,0,0,"sub-sequence", 0, 2, 0);
-	T = trans[ 0][10] = settr(9,2,0,0,0,"ATOMIC", 1, 2, 0);
-	T->nxt	= settr(9,2,8,0,0,"ATOMIC", 1, 2, 0);
-	T = trans[0][8] = settr(7,2,0,0,0,"IF", 1, 2, 0);
-	T = T->nxt	= settr(7,2,4,0,0,"IF", 1, 2, 0);
-	    T->nxt	= settr(7,2,7,0,0,"IF", 1, 2, 0);
-	trans[0][4]	= settr(3,4,19,15,15,"(((fork[id]<0)&&(fork[((id+1)%4)]<0)))", 1, 2, 0); /* m: 5 -> 19,0 */
-	reached0[5] = 1;
-	trans[0][5]	= settr(0,0,0,0,0,"fork[id] = id",0,0,0);
-	trans[0][6]	= settr(0,0,0,0,0,"fork[((id+1)%4)] = id",0,0,0);
-	trans[0][9]	= settr(8,0,19,16,16,".(goto)", 1, 2, 0);
-	trans[0][7]	= settr(6,2,9,2,0,"else", 1, 2, 0);
+	trans[0][25]	= settr(24,0,24,1,0,".(goto)", 0, 2, 0);
+	T = trans[0][24] = settr(23,0,0,0,0,"DO", 0, 2, 0);
+	T = T->nxt	= settr(23,0,1,0,0,"DO", 0, 2, 0);
+	    T->nxt	= settr(23,0,21,0,0,"DO", 0, 2, 0);
+	trans[0][1]	= settr(0,0,2,5,0,"((hunger[id]>=0))", 1, 2, 0);
+	trans[0][2]	= settr(1,0,10,6,0,"printf('%d is still alive\\n',id)", 0, 2, 0);
+	T = trans[ 0][10] = settr(9,0,0,0,0,"sub-sequence", 0, 2, 0);
+	T->nxt	= settr(9,0,9,0,0,"sub-sequence", 0, 2, 0);
+	T = trans[ 0][9] = settr(8,2,0,0,0,"ATOMIC", 1, 2, 0);
+	T->nxt	= settr(8,2,7,0,0,"ATOMIC", 1, 2, 0);
+	T = trans[0][7] = settr(6,2,0,0,0,"IF", 1, 2, 0);
+	T = T->nxt	= settr(6,2,3,0,0,"IF", 1, 2, 0);
+	    T->nxt	= settr(6,2,6,0,0,"IF", 1, 2, 0);
+	trans[0][3]	= settr(2,4,19,7,7,"(((fork[id]<0)&&(fork[((id+1)%4)]<0)))", 1, 2, 0); /* m: 4 -> 19,0 */
+	reached0[4] = 1;
+	trans[0][4]	= settr(0,0,0,0,0,"fork[id] = id",0,0,0);
+	trans[0][5]	= settr(0,0,0,0,0,"fork[((id+1)%4)] = id",0,0,0);
+	trans[0][8]	= settr(7,0,19,8,8,".(goto)", 1, 2, 0);
+	trans[0][6]	= settr(5,2,8,2,0,"else", 1, 2, 0);
 	T = trans[0][19] = settr(18,0,0,0,0,"IF", 0, 2, 0);
-	T = T->nxt	= settr(18,0,12,0,0,"IF", 0, 2, 0);
-	    T->nxt	= settr(18,0,18,0,0,"IF", 0, 2, 0);
-	trans[0][12]	= settr(11,0,13,17,0,"(((fork[id]==id)&&(fork[((id+1)%4)]==id)))", 1, 2, 0);
-	trans[0][13]	= settr(12,0,17,18,0,"printf('%d: eating\\n',id)", 0, 2, 0);
-	T = trans[ 0][17] = settr(16,2,0,0,0,"ATOMIC", 1, 2, 0);
-	T->nxt	= settr(16,2,14,0,0,"ATOMIC", 1, 2, 0);
-	trans[0][14]	= settr(13,0,30,19,19,"fork[id] = -(1)", 1, 2, 0); /* m: 15 -> 0,30 */
-	reached0[15] = 1;
-	trans[0][15]	= settr(0,0,0,0,0,"fork[((id+1)%4)] = -(1)",0,0,0);
-	trans[0][16]	= settr(0,0,0,0,0,"hunger[id] = (hunger[id]+10)",0,0,0);
-	trans[0][20]	= settr(19,0,30,1,0,".(goto)", 0, 2, 0);
-	trans[0][18]	= settr(17,0,30,2,0,"else", 0, 2, 0);
-	trans[0][26]	= settr(25,0,30,1,0,".(goto)", 0, 2, 0);
-	trans[0][22]	= settr(21,0,23,2,0,"else", 0, 2, 0);
-	trans[0][23]	= settr(22,0,24,20,0,"printf('%d: philosophizing\\n',id)", 0, 2, 0);
-	trans[0][24]	= settr(23,0,30,21,21,"hunger[id] = (hunger[id]-1)", 1, 2, 0);
-	trans[0][27]	= settr(26,0,28,2,0,"else", 0, 2, 0);
-	trans[0][28]	= settr(27,0,33,22,0,"printf('%d is DEAD\\n',id)", 1, 2, 0);
-	trans[0][29]	= settr(28,0,33,1,0,"goto :b0", 1, 2, 0);
-	trans[0][32]	= settr(31,0,33,1,0,"break", 1, 2, 0);
-	trans[0][33]	= settr(32,0,34,23,0,"(0)", 1, 2, 0);
-	trans[0][34]	= settr(33,0,0,24,24,"-end-", 0, 3500, 0);
+	T = T->nxt	= settr(18,0,11,0,0,"IF", 0, 2, 0);
+	    T->nxt	= settr(18,0,17,0,0,"IF", 0, 2, 0);
+	trans[0][11]	= settr(10,0,12,9,0,"(((fork[id]==id)&&(fork[((id+1)%4)]==id)))", 1, 2, 0);
+	trans[0][12]	= settr(11,0,16,10,0,"printf('%d: eating\\n',id)", 0, 2, 0);
+	T = trans[ 0][16] = settr(15,2,0,0,0,"ATOMIC", 1, 2, 0);
+	T->nxt	= settr(15,2,13,0,0,"ATOMIC", 1, 2, 0);
+	trans[0][13]	= settr(12,0,24,11,11,"fork[id] = -(1)", 1, 2, 0); /* m: 14 -> 0,24 */
+	reached0[14] = 1;
+	trans[0][14]	= settr(0,0,0,0,0,"fork[((id+1)%4)] = -(1)",0,0,0);
+	trans[0][15]	= settr(0,0,0,0,0,"hunger[id] = (hunger[id]+3)",0,0,0);
+	trans[0][20]	= settr(19,0,24,1,0,".(goto)", 0, 2, 0);
+	trans[0][17]	= settr(16,0,18,2,0,"else", 0, 2, 0);
+	trans[0][18]	= settr(17,0,24,12,0,"printf('%d can not eat',id)", 0, 2, 0);
+	trans[0][21]	= settr(20,0,22,2,0,"else", 1, 2, 0);
+	trans[0][22]	= settr(21,0,27,13,0,"printf('%d is DEAD\\n',id)", 1, 2, 0);
+	trans[0][23]	= settr(22,0,27,1,0,"goto :b0", 0, 2, 0);
+	trans[0][26]	= settr(25,0,27,1,0,"break", 0, 2, 0);
+	trans[0][27]	= settr(26,0,0,14,14,"-end-", 0, 3500, 0);
 	/* np_ demon: */
 	trans[_NP_] = (Trans **) emalloc(2*sizeof(Trans *));
 	T = trans[_NP_][0] = settr(9997,0,1,_T5,0,"(np_)", 1,2,0);
