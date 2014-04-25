@@ -1,0 +1,35 @@
+error: max search depth too small
+Depth=    9999 States=    1e+06 Transitions= 2.04e+06 Memory=   227.948	t=     1.38 R=   7e+05
+Depth=    9999 States=    2e+06 Transitions= 4.05e+06 Memory=   327.167	t=     2.78 R=   7e+05
+Interrupted
+
+(Spin Version 6.2.7 -- 2 March 2014)
+Warning: Search not completed
+	+ Partial Order Reduction
+
+Full statespace search for:
+	never claim         	- (none specified)
+	assertion violations	+
+	acceptance   cycles 	- (not selected)
+	invalid end states	+
+
+State-vector 92 byte, depth reached 9999, errors: 0
+  2172711 states, stored
+  2228324 states, matched
+  4401035 transitions (= stored+matched)
+     9307 atomic steps
+hash conflicts:     71061 (resolved)
+
+Stats on memory usage (in Megabytes):
+  248.647	equivalent memory usage for states (stored*(State-vector + overhead))
+  216.047	actual memory usage for states (compression: 86.89%)
+         	state-vector as stored = 76 byte + 28 byte overhead
+  128.000	memory used for hash table (-w24)
+    0.534	memory used for DFS stack (-m10000)
+  344.355	total actual memory usage
+
+
+
+pan: elapsed time 3.04 seconds
+pan: rate 714707.57 states/second
+pan: cannot find phil.trail

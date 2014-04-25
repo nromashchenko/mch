@@ -1,0 +1,82 @@
+#define n 4
+
+#define left fork[id]
+#define right fork[(id+1) % n]
+
+int fork[n];
+int hunger[n];
+
+inline get_fork(id) {
+    atomic {
+        if
+            :: left < 0 && right < 0 -> 
+                    left = id;
+                    right = id;
+            :: else
+        fi
+    }
+}
+
+inline eat(id) {
+    get_fork(id);
+
+    if 
+        :: left == id && right == id ->
+
+            /* yum-yum */
+            printf("%d: eating\n", id);
+
+
+            atomic {
+                left = -1;
+                right = -1;
+                hunger[id] = hunger[id] + 10; 
+            }
+        :: else /*-> printf("%d can not eat", id);*/
+    fi
+}
+
+active [n] proctype philosopher() {
+    int id = _pid;
+
+    do
+        :: hunger[id] >= 0 -> 
+            
+            printf("%d is still alive\n", id);
+
+            if 
+                :: hunger[id] < 15 -> eat(id); 
+                :: else
+                    /* philosophizing */
+                    printf("%d: philosophizing\n", id);
+
+                    hunger[id]--;
+            fi;
+
+        :: else -> 
+            printf("%d is DEAD\n", id);
+            break;
+    od;
+
+    L:(false)
+}
+
+active proctype check()
+{
+    philosopher@L
+    /*int i;
+    for (i: 0 .. n-1) {
+        assert(hunger[i] >= 0);
+    }*/
+}
+
+init {
+    int i;
+    for (i: 0 .. n-1) {
+        hunger[i] = 20;
+        fork[i] = -1;
+
+        /*run philosopher();*/
+    }
+    run check();
+}
