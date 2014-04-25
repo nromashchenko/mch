@@ -45,10 +45,18 @@
 		goto R999;
 ;
 		;
+		
+	case 13: /* STATE 22 */
+		;
+		now.hunger[ Index(((P0 *)this)->id, 4) ] = trpt->bup.oval;
+		;
+		goto R999;
+;
+		;
 		;
 		;
 		
-	case 14: /* STATE 27 */
+	case 16: /* STATE 32 */
 		;
 		p_restor(II);
 		;

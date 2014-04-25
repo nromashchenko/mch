@@ -407,7 +407,7 @@ int _;	/* predefined write-only variable */
 #endif
 
 short src_ln1 [] = {
-	  0,  73,  74,   0, };
+	  0,  72,  73,   0, };
 S_F_MAP src_file1 [] = {
 	{ "-", 0, 0 },
 	{ "phil", 1, 2 },
@@ -418,20 +418,22 @@ uchar reached1 [] = {
 uchar *loopstate1;
 
 short src_ln0 [] = {
-	  0,  33,  35,  12,  13,  14,  15,  11, 
-	 17,  10,  18,  49,  52,  56,  57,  58, 
-	 55,  60,  60,  48,  64,  64,  65,  66, 
-	 32,  69,  32,  69,   0, };
+	  0,  32,  35,  12,  13,  14,  15,  11, 
+	 17,  10,  18,  40,  43,  47,  48,  49, 
+	 46,  51,  52,  39,  55,  55,  56,  34, 
+	 61,  61,  62,  63,  31,  66,  31,  66, 
+	 68,   0, };
 S_F_MAP src_file0 [] = {
 	{ "-", 0, 0 },
-	{ "phil", 1, 27 },
-	{ "-", 28, 29 }
+	{ "phil", 1, 32 },
+	{ "-", 33, 34 }
 };
 uchar reached0 [] = {
-	  0,   1,   0,   1,   0,   0,   1,   1, 
+	  0,   1,   1,   1,   0,   0,   1,   1, 
 	  1,   1,   0,   1,   0,   1,   0,   0, 
-	  0,   1,   0,   0,   1,   1,   0,   1, 
-	  0,   1,   1,   0,   0, };
+	  0,   1,   0,   0,   1,   1,   0,   0, 
+	  1,   1,   0,   1,   0,   1,   1,   0, 
+	  0,   0, };
 uchar *loopstate0;
 uchar reached2[3];  /* np_ */
 uchar *loopstate2;  /* np_ */
@@ -754,11 +756,11 @@ addproc(int calling_pid, int priority, int n)
 		break;
 	case 0:	/* philosopher */
 		((P0 *)pptr(h))->_t = 0;
-		((P0 *)pptr(h))->_p = 24;
+		((P0 *)pptr(h))->_p = 28;
 #ifdef HAS_PRIORITY
 		((P0 *)pptr(h))->_priority = priority; /* was: 1 */
 #endif
-		reached0[24]=1;
+		reached0[28]=1;
 		/* params: */
 		/* locals: */
 		((P0 *)pptr(h))->id = ((int)((P0 *)this)->_pid);
@@ -875,7 +877,7 @@ run(void)
 	if ((Maxbody % WS) != 0)
 		Maxbody += WS - (Maxbody % WS);
 
-	visstate[0][22] = 1;
+	visstate[0][31] = 1;
 	retrans(0, nstates0, start0, src_ln0, reached0, loopstate0);
 	retrans(1, nstates1, start1, src_ln1, reached1, loopstate1);
 	if (state_tables)
@@ -13319,7 +13321,7 @@ c_chandump(int unused)
 {	unused++; /* avoid complaints */
 }
 
-Trans *t_id_lkup[29];
+Trans *t_id_lkup[34];
 
 
 #ifdef BFS_PAR

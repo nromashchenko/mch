@@ -17,14 +17,6 @@ inline get_fork(id) {
     }
 }
 
-inline eat(id) {
-    }
-
-inline philosophize(id) {
-    printf("%d: philosophizing\n", id);
-}
-
-
 active [n] proctype philosopher() {
     int id = _pid;
 
@@ -39,32 +31,36 @@ active [n] proctype philosopher() {
                     if 
                         :: left == id && right == id ->
 
-                            /* yum-yum */
-                            printf("%d: eating\n", id);
-
-
                             atomic {
+                                /* yum-yum */
+
+                                printf("%d: eating: %d\n", id, hunger[id]);
                                 left = -1;
                                 right = -1;
                                 hunger[id] = hunger[id] + 3; 
                             }
-                        :: else -> printf("%d can not eat", id);
+
+                        :: else -> 
+                            printf("%d: can't", id);       
                     fi;
 
                 :: else -> 
+                    printf("%d: philosophizing\n", id);
                     hunger[id]--;
 
             fi;
 
 
         :: else ->
-DEAD:       printf("%d is DEAD\n", id);
+            printf("%d is DEAD\n", id);
             break;
     od;
+
+    L:(false)
 
 }
 
 active proctype check()
 {
-    philosopher@DEAD
+    philosopher@L
 }

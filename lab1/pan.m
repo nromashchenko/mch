@@ -19,29 +19,30 @@
 		_m = 3; goto P999;
 
 		 /* PROC check */
-	case 3: /* STATE 1 - phil:73 - [((philosopher._p==DEAD))] (0:0:0 - 1) */
+	case 3: /* STATE 1 - phil:72 - [((philosopher._p==L))] (0:0:0 - 1) */
 		IfNotBlocked
 		reached[1][1] = 1;
-		if (!((((int)((P0 *)Pptr(f_pid(0)))->_p)==22)))
+		if (!((((int)((P0 *)Pptr(f_pid(0)))->_p)==31)))
 			continue;
 		_m = 3; goto P999; /* 0 */
-	case 4: /* STATE 2 - phil:74 - [-end-] (0:0:0 - 1) */
+	case 4: /* STATE 2 - phil:73 - [-end-] (0:0:0 - 1) */
 		IfNotBlocked
 		reached[1][2] = 1;
 		if (!delproc(1, II)) continue;
 		_m = 3; goto P999; /* 0 */
 
 		 /* PROC philosopher */
-	case 5: /* STATE 1 - phil:33 - [((hunger[id]>=0))] (0:0:0 - 1) */
+	case 5: /* STATE 1 - phil:32 - [((hunger[id]>=0))] (0:0:0 - 1) */
 		IfNotBlocked
 		reached[0][1] = 1;
 		if (!((now.hunger[ Index(((P0 *)this)->id, 4) ]>=0)))
 			continue;
 		_m = 3; goto P999; /* 0 */
-	case 6: /* STATE 2 - phil:35 - [printf('%d is still alive\\n',id)] (0:0:0 - 1) */
+	case 6: /* STATE 2 - phil:35 - [((hunger[id]<15))] (0:0:0 - 1) */
 		IfNotBlocked
 		reached[0][2] = 1;
-		Printf("%d is still alive\n", ((P0 *)this)->id);
+		if (!((now.hunger[ Index(((P0 *)this)->id, 4) ]<15)))
+			continue;
 		_m = 3; goto P999; /* 0 */
 	case 7: /* STATE 3 - phil:12 - [(((fork[id]<0)&&(fork[((id+1)%4)]<0)))] (19:0:2 - 1) */
 		IfNotBlocked
@@ -74,18 +75,18 @@
 		reached[0][8] = 1;
 		;
 		_m = 3; goto P999; /* 0 */
-	case 9: /* STATE 11 - phil:49 - [(((fork[id]==id)&&(fork[((id+1)%4)]==id)))] (0:0:0 - 1) */
+	case 9: /* STATE 11 - phil:40 - [(((fork[id]==id)&&(fork[((id+1)%4)]==id)))] (0:0:0 - 1) */
 		IfNotBlocked
 		reached[0][11] = 1;
 		if (!(((now.fork[ Index(((P0 *)this)->id, 4) ]==((P0 *)this)->id)&&(now.fork[ Index(((((P0 *)this)->id+1)%4), 4) ]==((P0 *)this)->id))))
 			continue;
 		_m = 3; goto P999; /* 0 */
-	case 10: /* STATE 12 - phil:52 - [printf('%d: eating\\n',id)] (0:0:0 - 1) */
+	case 10: /* STATE 12 - phil:43 - [printf('%d: eating\\n',id)] (0:0:0 - 1) */
 		IfNotBlocked
 		reached[0][12] = 1;
 		Printf("%d: eating\n", ((P0 *)this)->id);
 		_m = 3; goto P999; /* 0 */
-	case 11: /* STATE 13 - phil:56 - [fork[id] = -(1)] (0:24:3 - 1) */
+	case 11: /* STATE 13 - phil:47 - [fork[id] = -(1)] (0:28:3 - 1) */
 		IfNotBlocked
 		reached[0][13] = 1;
 		(trpt+1)->bup.ovals = grab_ints(3);
@@ -95,7 +96,7 @@
 		logval("fork[philosopher:id]", now.fork[ Index(((P0 *)this)->id, 4) ]);
 #endif
 		;
-		/* merge: fork[((id+1)%4)] = -(1)(24, 14, 24) */
+		/* merge: fork[((id+1)%4)] = -(1)(28, 14, 28) */
 		reached[0][14] = 1;
 		(trpt+1)->bup.ovals[1] = now.fork[ Index(((((P0 *)this)->id+1)%4), 4) ];
 		now.fork[ Index(((((P0 *)this)->id+1)%4), 4) ] =  -(1);
@@ -103,7 +104,7 @@
 		logval("fork[((philosopher:id+1)%4)]", now.fork[ Index(((((P0 *)this)->id+1)%4), 4) ]);
 #endif
 		;
-		/* merge: hunger[id] = (hunger[id]+3)(24, 15, 24) */
+		/* merge: hunger[id] = (hunger[id]+3)(28, 15, 28) */
 		reached[0][15] = 1;
 		(trpt+1)->bup.ovals[2] = now.hunger[ Index(((P0 *)this)->id, 4) ];
 		now.hunger[ Index(((P0 *)this)->id, 4) ] = (now.hunger[ Index(((P0 *)this)->id, 4) ]+3);
@@ -111,26 +112,45 @@
 		logval("hunger[philosopher:id]", now.hunger[ Index(((P0 *)this)->id, 4) ]);
 #endif
 		;
-		/* merge: .(goto)(0, 20, 24) */
+		/* merge: .(goto)(0, 20, 28) */
 		reached[0][20] = 1;
 		;
-		/* merge: .(goto)(0, 25, 24) */
-		reached[0][25] = 1;
+		/* merge: .(goto)(0, 24, 28) */
+		reached[0][24] = 1;
 		;
-		_m = 3; goto P999; /* 4 */
-	case 12: /* STATE 18 - phil:60 - [printf('%d can not eat',id)] (0:0:0 - 1) */
+		/* merge: .(goto)(0, 29, 28) */
+		reached[0][29] = 1;
+		;
+		_m = 3; goto P999; /* 5 */
+	case 12: /* STATE 18 - phil:52 - [printf('%d: can't',id)] (0:0:0 - 1) */
 		IfNotBlocked
 		reached[0][18] = 1;
-		Printf("%d can not eat", ((P0 *)this)->id);
+		Printf("%d: can't", ((P0 *)this)->id);
 		_m = 3; goto P999; /* 0 */
-	case 13: /* STATE 22 - phil:65 - [printf('%d is DEAD\\n',id)] (0:0:0 - 1) */
+	case 13: /* STATE 22 - phil:56 - [hunger[id] = (hunger[id]-1)] (0:0:1 - 1) */
 		IfNotBlocked
 		reached[0][22] = 1;
+		(trpt+1)->bup.oval = now.hunger[ Index(((P0 *)this)->id, 4) ];
+		now.hunger[ Index(((P0 *)this)->id, 4) ] = (now.hunger[ Index(((P0 *)this)->id, 4) ]-1);
+#ifdef VAR_RANGES
+		logval("hunger[philosopher:id]", now.hunger[ Index(((P0 *)this)->id, 4) ]);
+#endif
+		;
+		_m = 3; goto P999; /* 0 */
+	case 14: /* STATE 26 - phil:62 - [printf('%d is DEAD\\n',id)] (0:0:0 - 1) */
+		IfNotBlocked
+		reached[0][26] = 1;
 		Printf("%d is DEAD\n", ((P0 *)this)->id);
 		_m = 3; goto P999; /* 0 */
-	case 14: /* STATE 27 - phil:69 - [-end-] (0:0:0 - 3) */
+	case 15: /* STATE 31 - phil:66 - [(0)] (0:0:0 - 3) */
 		IfNotBlocked
-		reached[0][27] = 1;
+		reached[0][31] = 1;
+		if (!(0))
+			continue;
+		_m = 3; goto P999; /* 0 */
+	case 16: /* STATE 32 - phil:68 - [-end-] (0:0:0 - 1) */
+		IfNotBlocked
+		reached[0][32] = 1;
 		if (!delproc(1, II)) continue;
 		_m = 3; goto P999; /* 0 */
 	case  _T5:	/* np_ */

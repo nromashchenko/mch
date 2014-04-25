@@ -131,14 +131,14 @@ typedef struct S_F_MAP {
 } S_F_MAP;
 
 #define nstates1	3	/* check */
-#define minseq1	27
-#define maxseq1	28
+#define minseq1	32
+#define maxseq1	33
 #define endstate1	2
 
-#define nstates0	28	/* philosopher */
+#define nstates0	33	/* philosopher */
 #define minseq0	0
-#define maxseq0	26
-#define endstate0	27
+#define maxseq0	31
+#define endstate0	32
 
 extern short src_ln1[];
 extern short src_ln0[];
@@ -146,8 +146,8 @@ extern S_F_MAP src_file1[];
 extern S_F_MAP src_file0[];
 
 #define T_ID	unsigned char
-#define _T5	15
-#define _T2	16
+#define _T5	17
+#define _T2	18
 #define WS		8 /* word size in bytes */
 #define SYNC	0
 #define ASYNC	0
@@ -166,7 +166,7 @@ extern S_F_MAP src_file0[];
 typedef struct P1 { /* check */
 	unsigned _pid : 8;  /* 0..255 */
 	unsigned _t   : 3; /* proctype */
-	unsigned _p   : 6; /* state    */
+	unsigned _p   : 7; /* state    */
 #ifdef HAS_PRIORITY
 	unsigned _priority : 8; /* 0..255 */
 #endif
@@ -177,7 +177,7 @@ typedef struct P1 { /* check */
 typedef struct P0 { /* philosopher */
 	unsigned _pid : 8;  /* 0..255 */
 	unsigned _t   : 3; /* proctype */
-	unsigned _p   : 6; /* state    */
+	unsigned _p   : 7; /* state    */
 #ifdef HAS_PRIORITY
 	unsigned _priority : 8; /* 0..255 */
 #endif
@@ -188,7 +188,7 @@ typedef struct P0 { /* philosopher */
 typedef struct P2 { /* np_ */
 	unsigned _pid : 8;  /* 0..255 */
 	unsigned _t   : 3; /* proctype */
-	unsigned _p   : 6; /* state    */
+	unsigned _p   : 7; /* state    */
 #ifdef HAS_PRIORITY
 	unsigned _priority : 8; /* 0..255 */
 #endif
@@ -417,7 +417,7 @@ typedef struct TRIX_v6 {
 
 #define start2	0 /* np_ */
 #define start1	1
-#define start0	24
+#define start0	28
 #ifdef NP
 	#define ACCEPT_LAB	1 /* at least 1 in np_ */
 #else
@@ -765,7 +765,7 @@ void qsend(int, int, int);
 #define GLOBAL	7
 #define BAD	8
 #define ALPHA_F	9
-#define NTRANS	17
+#define NTRANS	19
 #if defined(BFS_PAR) || NCORE>1
 	void e_critical(int);
 	void x_critical(int);
